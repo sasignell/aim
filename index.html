@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="AIM Camera Trap Network Hex Grid Selector App">
+    <meta name="author" content="Bryan McBride">
+    <title>AIM Camera Trap Network</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
+    <link rel="stylesheet" href="assets/vendor/bootstrap-5.1.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/vendor/leaflet-1.7.1/leaflet.css">
+    <link rel="stylesheet" href="assets/vendor/leaflet-locatecontrol-0.74.0/L.Control.Locate.min.css">
+    <link rel="stylesheet" href="assets/vendor/leaflet-measure-path-1.5.0/leaflet-measure-path.css">
+    <link rel="stylesheet" href="assets/vendor/icomoon/style.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+  </head>
+  <body>
+    <nav id="navbar" class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="#">
+          <img src="assets/img/logo60.png" alt="" width="60" height="60">
+          AIM Camera Trap Network
+        </a>
+        <a class="navbar-brand" href="#" data-bs-toggle="modal" data-bs-target="#info-modal">
+          <i class="icon-help_center" style="font-size: 32px;"></i>
+        </a>
+      </div>
+    </nav>
+
+    <main id="map">
+      <div class="crosshair" id="crosshair"></div>
+      <div class="loader" id="loader">
+        <div class="text-center">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="position-fixed bottom-0 start-50 translate-middle-x p-3" style="z-index: 9999">
+      <div id="measure-toast" class="toast align-items-center" style="background-color: rgba(255,255,255,.95);" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+        <div class="d-flex">
+          <div class="toast-body">
+            Total distance: <span id="total-distance" class="fw-bold">0</span>
+            <div class="mt-2 pt-2 border-top text-muted">
+              Tap map to add measurement segments.
+            </div>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="info-modal" class="modal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">AIM Camera Trap Network</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Use this map tool to identify sample units and specific areas within these units to deploy camera traps using the AIM Camera Trap Network survey protocol.</p>
+            <p>Sample units are identified by, and labeled with, a <b>unique HexID number</b> (5 or 6-digits). Tools such as the <b>'Zoom to current location'</b> and <b>'Measuring Tool'</b> will assist you with this task. For example, the measuring tool is helpful for ensuring that camera stations between adjacent sample units are a minimum of 800 meters apart.</p>
+            <p>Once identified, the HexID number will be used to label each location in the field and will be attached to the top of the snow stake on laminated paper. Additionally, this number and basic information will be photographed at each survey location using the camera trap.</p>
+            <p>Please use the templates provided here to construct both the <a href="data/HexID_snow_stake_labels.pdf" target="_blank">snow stake labels</a> and the <a href="data/HexID_camera_info_sheet.pdf" target="_blank">camera station information sheet</a>.</p>
+          </div>
+          <div class="modal-footer">
+            <p class="text-muted">Please refer to the protocol and tutorial video or contact <a href="mailto:pjensen@esf.edu">Paul Jensen</a> if you have any questions.</p>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="assets/vendor/bootstrap-5.1.2/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/leaflet-1.7.1/leaflet.js"></script>
+    <script src="assets/vendor/leaflet-locatecontrol-0.74.0/L.Control.Locate.min.js"></script>
+    <script src="assets/vendor/leaflet-measure-path-1.5.0/leaflet-measure-path.js"></script>
+    <script src="assets/vendor/flatgeobuf-3.17.5/flatgeobuf-geojson.min.js"></script>
+    <script src="assets/vendor/turf-6.5.0/turf.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("service-worker.js");
+      }
+    </script>
+    <noscript>This website requires JavaScript!</noscript>
+  </body>
+</html>
