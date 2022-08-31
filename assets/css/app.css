@@ -12,6 +12,7 @@ html, body, #map {
   height: 100%;
   width: 100%;
 }
+
 .crosshair {
   visibility: hidden;
   position: absolute;
@@ -126,7 +127,16 @@ html, body, #map {
   .leaflet-control-layers-list {
     font-size: medium;
   }
+  .hidden-sm {
+    display: none;
+  }
+  .visible-sm {
+    display: inline-block;
+  }
+
 }
+
+
 .spinner {
 	display: inline-block;
 	animation: anim-rotate 2s infinite linear;
