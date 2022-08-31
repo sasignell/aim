@@ -13,6 +13,8 @@ workbox.precaching.precacheAndRoute([
   {url: 'assets/img/apple-touch-icon.png', revision: '10.05.21.1'},
   {url: 'assets/img/favicon-32x32.png', revision: '10.05.21.1'},
   {url: 'assets/img/favicon-16x16.png', revision: '10.05.21.1'},
+  {url: 'assets/img/offline.jpg', revision: '08.31.22.1'},
+  {url: 'assets/img/logo60.png', revision: '08.31.22.1'},
   {url: 'assets/vendor/icomoon/style.css', revision: '10.05.21.1'},
   {url: 'assets/vendor/icomoon/fonts/icomoon.ttf', revision: '10.05.21.1'},
   {url: 'assets/vendor/icomoon/fonts/icomoon.woff', revision: '10.05.21.1'},
