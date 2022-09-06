@@ -1,13 +1,13 @@
 const map = L.map("map", {
   zoomSnap: L.Browser.mobile ? 0 : 1,
   tap: false,
-  maxZoom: 22,
+  maxZoom: 20,
   zoomControl: false,
   renderer: L.canvas({
     padding: 0.5,
     tolerance: 10
   })
-}).fitBounds([[45.033823, -73.217575], [42.840591, -76.67597]]);
+}).fitBounds([[44.64, -72.81], [42.43, -77.72]]);
 map.attributionControl.setPrefix("");
 
 const layers = {
@@ -33,6 +33,8 @@ const layers = {
   },
   overlays: {
     "Labels": L.featureGroup().addTo(map),
+    "Major Roads": L.featureGroup().addTo(map),
+    "Public Land": L.featureGroup().addTo(map),
     "Sample Units": L.featureGroup().addTo(map)
   },
   measure: {
@@ -109,6 +111,7 @@ const controls = {
     cacheLocation: true,
     position: "bottomright",
     flyTo: false,
+    initialZoomLevel: 14,
     keepCurrentZoomLevel: false,
     circleStyle: {
       interactive: false
@@ -119,7 +122,7 @@ const controls = {
     metric: false,
     strings: {
       title: "My location",
-      outsideMapBoundsMsg: "You seem to be located outside the preserve boundary!",
+      outsideMapBoundsMsg: "You seem to be located outside the New York State boundary!",
       popup: (options) => {
         const loc = controls.locateCtrl._marker.getLatLng();
         return `<div style="text-align: center;">You are within ${Number(options.distance).toLocaleString()} ${options.unit}<br>from <strong>${loc.lat.toFixed(6)}</strong>, <strong>${loc.lng.toFixed(6)}</strong></div>`;
@@ -265,11 +268,41 @@ window.addEventListener("resize", (e) => {
   resize();
 });
 
+
 document.addEventListener("DOMContentLoaded", async () => {
   resize();
 
   const infoModal = new bootstrap.Modal(document.getElementById("info-modal")).toggle();
   const response = await fetch("data/samplegrid.fgb");
+  const response2 = await fetch("data/publicland.fgb");
+  const response3 = await fetch("data/roads.fgb");
+  for await (let feature of flatgeobuf.deserialize(response2.body, undefined, null)) {
+    const defaultStyle2 = {
+      color: "green",
+      weight: 1,
+      fillOpacity: 0.2
+    };
+
+    const layer2 = L.geoJSON(feature, {
+      style: defaultStyle2,
+      interactive: false
+    })
+    layers.overlays["Public Land"].addLayer(layer2);
+  }
+
+  for await (let feature of flatgeobuf.deserialize(response3.body, undefined, null)) {
+    const defaultStyle3 = {
+      color: "black",
+      weight: 1
+    };
+
+    const layer3 = L.geoJSON(feature, {
+      style: defaultStyle3,
+      interactive: false
+    })
+    layers.overlays["Major Roads"].addLayer(layer3);
+  }
+
 
   for await (let feature of flatgeobuf.deserialize(response.body, undefined, null)) {
     const defaultStyle = {
@@ -298,10 +331,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       "click": function (e) {
         // console.log(feature.properties["id"].toString());
       }
-    }).bindPopup(`<div style="font-size: 16px; font-weight: bold; color: #ff7a50;">${feature.properties["id"].toString()}</div>`)
+    }).bindPopup(`<div style="font-size: 16px; font-weight: bold; color: #ff7a50;">'${feature.properties["id"].toString()}'</div>`)
     layers.overlays["Sample Units"].addLayer(layer);
   }
 
-  ZoomToExtent();
+
+  
+
+ // ZoomToExtent();
   hideLoader();
 });

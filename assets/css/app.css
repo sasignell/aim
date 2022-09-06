@@ -136,6 +136,16 @@ html, body, #map {
 
 }
 
+@media (min-width: 768px) {
+  .hidden-sm {
+    display: inline-block;
+  }
+  .visible-sm {
+    display: none;
+  }
+
+}
+
 
 .spinner {
 	display: inline-block;

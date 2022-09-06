@@ -34,6 +34,8 @@ workbox.precaching.precacheAndRoute([
   {url: 'assets/vendor/flatgeobuf-3.17.5/flatgeobuf-geojson.min.js', revision: '10.05.21.1'},
   {url: 'assets/vendor/turf-6.5.0/turf.js', revision: '10.05.21.1'},
   {url: 'data/samplegrid.fgb', revision: '08.30.22.1'},
+  {url: 'data/roads.fgb', revision: '09.05.22.1'},
+  {url: 'data/publicland.fgb', revision: '09.05.22.1'},
   {url: 'data/HexID_snow_stake_labels.pdf', revision: '10.05.21.1'},
   {url: 'data/HexID_camera_info_sheet.pdf', revision: '10.05.21.1'}
 ], {
