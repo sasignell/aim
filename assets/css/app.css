@@ -13,6 +13,9 @@ html, body, #map {
   width: 100%;
 }
 
+.modal-content p {
+  font-size: .75em;
+}
 .crosshair {
   visibility: hidden;
   position: absolute;
