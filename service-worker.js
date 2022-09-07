@@ -6,9 +6,9 @@ workbox.setConfig({
 });
 
 workbox.precaching.precacheAndRoute([
-  {url: 'index.html', revision: '09.05.22.1'},
+  {url: 'index.html', revision: '09.06.22.1'},
   {url: 'manifest.json', revision: '10.05.21.1'},
-  {url: 'assets/js/app.js', revision: '09.05.22.1'},
+  {url: 'assets/js/app.js', revision: '09.06.22.1'},
   {url: 'assets/css/app.css', revision: '09.05.22.1'},
   {url: 'assets/img/apple-touch-icon.png', revision: '10.05.21.1'},
   {url: 'assets/img/favicon-32x32.png', revision: '10.05.21.1'},
@@ -37,6 +37,7 @@ workbox.precaching.precacheAndRoute([
   {url: 'data/samplegrid.fgb', revision: '08.30.22.1'},
   {url: 'data/roads.fgb', revision: '09.05.22.1'},
   {url: 'data/publicland.fgb', revision: '09.05.22.1'},
+  {url: 'data/dec_road_trail.fgb', revision: '09.06.22.1'},
   {url: 'data/HexID_snow_stake_labels.pdf', revision: '10.05.21.1'},
   {url: 'data/HexID_camera_info_sheet.pdf', revision: '10.05.21.1'}
 ], {

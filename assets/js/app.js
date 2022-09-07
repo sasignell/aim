@@ -2,12 +2,12 @@ const map = L.map("map", {
   zoomSnap: L.Browser.mobile ? 0 : 1,
   tap: false,
   maxZoom: 20,
-  zoomControl: false,
+  zoomControl: true,
   renderer: L.canvas({
     padding: 0.5,
     tolerance: 10
   })
-}).fitBounds([[44.64, -72.81], [42.43, -77.72]]);
+}).fitBounds([[45, -73], [43, -76]]);
 map.attributionControl.setPrefix("");
 
 const layers = {
@@ -33,7 +33,8 @@ const layers = {
   },
   overlays: {
     "Labels": L.featureGroup().addTo(map),
-    "Major Roads": L.featureGroup().addTo(map),
+    "Roads": L.featureGroup().addTo(map),
+    "Trails": L.featureGroup().addTo(map),
     "Public Land": L.featureGroup().addTo(map),
     "Sample Units": L.featureGroup().addTo(map)
   },
@@ -231,6 +232,8 @@ const measure = {
   }
 }
 
+
+
 map.on("moveend", function(e) {
   layers.overlays["Labels"].clearLayers();
   if (map.getZoom() >= 12) {
@@ -276,6 +279,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const response = await fetch("data/samplegrid.fgb");
   const response2 = await fetch("data/publicland.fgb");
   const response3 = await fetch("data/roads.fgb");
+  const response4 = await fetch("data/dec_road_trail.fgb");
   for await (let feature of flatgeobuf.deserialize(response2.body, undefined, null)) {
     const defaultStyle2 = {
       color: "green",
@@ -285,6 +289,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const layer2 = L.geoJSON(feature, {
       style: defaultStyle2,
+      maxZoom: 14,
       interactive: false
     })
     layers.overlays["Public Land"].addLayer(layer2);
@@ -300,8 +305,24 @@ document.addEventListener("DOMContentLoaded", async () => {
       style: defaultStyle3,
       interactive: false
     })
-    layers.overlays["Major Roads"].addLayer(layer3);
-  }
+    if (window.navigator.onLine==false) {
+        layers.overlays["Roads"].addLayer(layer3);
+    }
+    }
+    for await (let feature of flatgeobuf.deserialize(response4.body, undefined, null)) {
+    const defaultStyle4 = {
+      color: "orange",
+      weight: 1
+    };
+
+    const layer4 = L.geoJSON(feature, {
+      style: defaultStyle4,
+      interactive: false
+    })
+    if (window.navigator.onLine==false) {
+        layers.overlays["Trails"].addLayer(layer4);
+    }
+    }
 
 
   for await (let feature of flatgeobuf.deserialize(response.body, undefined, null)) {
