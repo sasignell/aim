@@ -138,7 +138,9 @@ html, body, #map {
   }
 
 }
-
+.modal-dialog modal-dialog-scrollable {
+  width:margin: 35px;
+}
 @media (min-width: 768px) {
   .hidden-sm {
     display: inline-block;
@@ -146,7 +148,10 @@ html, body, #map {
   .visible-sm {
     display: none;
   }
-
+  .modal-dialog {
+    max-width: 85%;
+    margin: 0.5rem auto;
+}
 }
 
 
